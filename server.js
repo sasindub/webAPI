@@ -1,7 +1,15 @@
-const express = require('express');
+import express from 'express';
+import dotenv from 'dotenv';
+import { connectDB, getDBStatus } from './db/db.js';
+
+dotenv.config(); // Load environment variables
+
 const app = express();
 
-app.use(express.json()); // Middleware to parse JSON
+// Connect to the database
+connectDB();
+
+app.use(express.json());
 
 // Routes
 app.get('/', (req, res) => {
@@ -9,7 +17,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/hello', (req, res) => {
-    res.json({ message: 'Hello from the API!' });
+    const dbStatus = getDBStatus() ? "connected" : "not connected";
+    res.json({ message: `Database is ${dbStatus}` });
 });
 
 // Start the server
