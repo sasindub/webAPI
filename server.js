@@ -6,7 +6,7 @@ dotenv.config(); // Load environment variables
 
 const app = express();
 
-// Connect to the database
+// Connect to the database to the system
 connectDB();
 
 app.use(express.json());
